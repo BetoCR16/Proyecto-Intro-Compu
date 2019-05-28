@@ -1,2 +1,2 @@
-# Proyecto-Intro-Compu
-Juego 
+# Proyecto de Introducción a Computación | UCR
+
