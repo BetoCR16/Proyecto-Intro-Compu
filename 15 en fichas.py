@@ -6,25 +6,13 @@ def revisarEleccion():
         eleccion = input('Elija un número de 1 a 9: ')
     return eleccion
 
-def revisarEleccionPC():
-    eleccion = random.choice(opciones)
-    while eleccion in f1 or eleccion in f2 or eleccion in f3 or eleccion in pc1 or eleccion in pc2 or eleccion in pc3:
-        eleccion = random.choice(opciones)
-    return eleccion
-
 def preguntaInicio():
     iniciar = input('¿Quién desea iniciar?\n1.Usuario\n2.Computadora\nSu elección: ')
     return iniciar
 
 def ganar(f1,f2,f3,pc1,pc2,pc3):
-    f1 = int(f1)
-    f2 = int(f2)
-    f3 = int(f3)
-    pc1 = int(pc1)
-    pc2 = int(pc2)
-    pc3 = int(pc3)
-    sumaUsuario = f1 + f2 + f3
-    sumaCompu = pc1 + pc2 + pc3
+    sumaUsuario = int(f1) + int(f2) + int(f3)
+    sumaCompu = int(pc1) + int(pc2) + int(pc3)
     if sumaCompu == 15:
         print ('Gana compu') 
     elif sumaUsuario == 15:
@@ -36,15 +24,16 @@ def tablero(turno, fichasJugador, fichasCompu):
     print('Fichas de computadora: ' + str(pc1) + ' ' + str(pc2) + ' ' + str(pc3))
 
 
+
 #----------------------------------------- PRINCIPAL -------------------------------------------------------------------------------
 
 opciones = ['1','2','3','4','5','6','7','8','9']
 continuar = True
 
 while continuar:
-    pc1 = 0
-    pc2 = 0
-    pc3 = 0
+    pc1 = '0'
+    pc2 = '0'
+    pc3 = '0'
     f1 = 0
     f2 = 0
     f3 = 0
@@ -53,12 +42,16 @@ while continuar:
     fichasJugador = ''
     while True:
         tablero(turno, fichasJugador, fichasCompu)
-        f1 = str(revisarEleccion())
+        f1 = revisarEleccion()
         pc1 = random.choice(opciones)
-        f2 = str(revisarEleccion())
+        f2 = revisarEleccion()
         pc2 = random.choice(opciones)
-        f3 = str(revisarEleccion())
-        pc3 =random.choice(opciones) 
+        f3 = revisarEleccion()
+        pc3 = random.choice(opciones)
         turno += 1
         fichasJugador = f1,f2,f3
         fichasCompu = pc1, pc2, pc3
+        suma = int(f1)+int(f2)+int(f3)
+        ganar(f1,f2,f3,pc1,pc2,pc3)
+       
+
