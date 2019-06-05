@@ -2,9 +2,18 @@ import random
 
 def revisarEleccion():
     eleccion = input('Elija un número de 1 a 9: ')
-    while len(eleccion) != 1 or eleccion not in '123456789':
+    while len(eleccion) != 1 or eleccion not in '123456789' or eleccion in pc1\
+          or eleccion in pc2 or eleccion in pc3 or eleccion in str(f1)\
+          or eleccion in str(f2) or eleccion in str(f3):
         eleccion = input('Elija un número de 1 a 9: ')
     return eleccion
+
+def revisarEleccionCompu(f1,f2,f3):
+    eleccionPC = random.choice(opciones)
+    while eleccionPC in str(f1) or eleccionPC in str(f2)\
+        or eleccionPC in str(f3) or eleccionPC in pc1 or eleccionPC in pc2 or eleccionPC in pc3:
+        eleccionPC = random.choice(opciones) 
+    return eleccionPC
 
 def preguntaInicio():
     iniciar = input('¿Quién desea iniciar?\n1.Usuario\n2.Computadora\nSu elección: ')
@@ -14,16 +23,19 @@ def ganar(f1,f2,f3,pc1,pc2,pc3):
     sumaUsuario = int(f1) + int(f2) + int(f3)
     sumaCompu = int(pc1) + int(pc2) + int(pc3)
     if sumaCompu == 15:
-        print ('Gana compu') 
+        print ('Gana compu')
+        jugar = False
     elif sumaUsuario == 15:
         print('Gana usuario')
+        jugar = False
+    return jugar
+    
 
 def tablero(turno, fichasJugador, fichasCompu):
     print('Turno: ', turno)
     print('Fichas de usuario: ' + str(f1) + ' ' + str(f2) + ' ' + str(f3))
     print('Fichas de computadora: ' + str(pc1) + ' ' + str(pc2) + ' ' + str(pc3))
-
-
+    
 
 #----------------------------------------- PRINCIPAL -------------------------------------------------------------------------------
 
@@ -40,18 +52,19 @@ while continuar:
     turno = 0
     fichasCompu = ''
     fichasJugador = ''
-    while True:
-        tablero(turno, fichasJugador, fichasCompu)
-        f1 = revisarEleccion()
-        pc1 = random.choice(opciones)
-        f2 = revisarEleccion()
-        pc2 = random.choice(opciones)
-        f3 = revisarEleccion()
-        pc3 = random.choice(opciones)
-        turno += 1
-        fichasJugador = f1,f2,f3
-        fichasCompu = pc1, pc2, pc3
-        suma = int(f1)+int(f2)+int(f3)
-        ganar(f1,f2,f3,pc1,pc2,pc3)
-       
-
+    jugar = True
+    tablero(turno, fichasJugador, fichasCompu)
+    f1 = revisarEleccion()
+    pc1 = revisarEleccionCompu(f1,f2,f3)
+    print('\nElección de computadora: ', pc1,'\n')
+    f2 = revisarEleccion()
+    pc2 = revisarEleccionCompu(f1,f2,f3)
+    print('\nElección de computadora: ', pc2,'\n')
+    f3 = revisarEleccion()
+    pc3 = revisarEleccionCompu(f1,f2,f3)
+    print('\nElección de computadora: ', pc3,'\n')
+    turno += 1
+    fichasJugador = f1,f2,f3
+    fichasCompu = pc1, pc2, pc3
+    tablero(turno, fichasJugador, fichasCompu)
+    continuar = False
