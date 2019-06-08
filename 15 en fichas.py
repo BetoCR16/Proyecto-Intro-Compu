@@ -12,9 +12,13 @@ def revisarEleccionPC():
         pc = random.choice(opciones)
     return pc
 
-def preguntaInicio():
+def Inicio():
+    print ('Bienvenido al juego de 15 en fichas :D')
     iniciar = input('¿Quién desea iniciar?\n1.Usuario\n2.Computadora\nSu elección: ')
-    return iniciar
+    if iniciar == '1':
+        iniciaUsuario()
+    elif iniciar == '2':
+        iniciaPC()
 
 def ganar():
     sumaUsuario = sumaU(eleccionesUsuario)
@@ -82,6 +86,32 @@ def iniciaUsuario():
     print('\nElección de ficha 3 compu = ', pc3)
 
     tablero(turno, fichasJugador, fichasCompu)
+
+def iniciaPC():
+    tablero(turno, fichasJugador, fichasCompu)
+    
+    pc1 = revisarEleccionPC()
+    eleccionesPC.append(pc1)
+    print('\nElección de ficha 1 compu = ', pc1)
+
+    f1 = revisarEleccion()
+    eleccionesUsuario.append(f1)
+
+    pc2 = revisarEleccionPC()
+    eleccionesPC.append(pc2)
+    print('\nElección de ficha 2 compu = ', pc2)
+
+    f2 = revisarEleccion()
+    eleccionesUsuario.append(f2)
+    
+    pc3 = revisarEleccionPC()
+    eleccionesPC.append(pc3)
+    print('\nElección de ficha 3 compu = ', pc3)
+
+    f3 = revisarEleccion()
+    eleccionesUsuario.append(f3)
+
+    tablero(turno, fichasJugador, fichasCompu)
 #----------------------------------------- PRINCIPAL -------------------------------------------------------------------------------
 
 opciones = [1,2,3,4,5,6,7,8,9]
@@ -98,5 +128,4 @@ turno = 0
 fichasCompu = ''
 fichasJugador = ''
 
-iniciaUsuario()
-cambiandoFichas(turno)
+Inicio()
