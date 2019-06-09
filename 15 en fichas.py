@@ -129,3 +129,4 @@ fichasCompu = ''
 fichasJugador = ''
 
 Inicio()
+ganar()
