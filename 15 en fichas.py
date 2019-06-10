@@ -29,7 +29,9 @@ def iniciaUsuario(): #Primer turno si va a iniciar primero el usuario
     eleccionesUsuario.append(f2)
     tablero(fichasJugador, fichasCompu)
     
-    pc2 = revisarEleccionPC()
+    pc2 = 15 - (f1 + f2)
+    while pc2 in eleccionesUsuario or pc2 in eleccionesPC or str(pc2) not in '123456789':
+        pc2 = random.choice(opciones)
     eleccionesPC.append(pc2)
     print('\nFicha #2 compu = ', pc2)
     time.sleep(2)
@@ -68,7 +70,9 @@ def iniciaPC(): #Primer turno si va a iniciar primero la computadora
     eleccionesUsuario.append(f2)
     tablero(fichasJugador, fichasCompu)
     
-    pc3 = revisarEleccionPC()
+    pc3 = 15 - (f1 + f2)
+    while pc3 in eleccionesUsuario or pc3 in eleccionesPC or str(pc3) not in '123456789':
+        pc3 = random.choice(opciones)
     eleccionesPC.append(pc3)
     print('\nFicha #3 compu = ', pc3)
     time.sleep(2)
@@ -111,10 +115,8 @@ def ganar(): #Define si alguien gana o no
     sumaCompu = sumaPC(eleccionesPC)
     if sumaCompu == 15:
         print ('\nGana compu')
-        return True
     elif sumaUsuario == 15:
         print('\nGana usuario')
-        return True
     else:
         print('\nNadie gana')
         return False
@@ -122,32 +124,33 @@ def ganar(): #Define si alguien gana o no
 #----------------------------------------- PRINCIPAL -------------------------------------------------------------------------------
 
 opciones = [1,2,3,4,5,6,7,8,9]
-continuar = True
 
 
-eleccionesUsuario = []
-eleccionesPC = []
-pc1 = 0
-pc2 = 0
-pc3 = 0
-f1 = 0
-f2 = 0
-f3 = 0
-turno = 0
-fichasCompu = ''
-fichasJugador = ''
+
 
 print ('Bienvenido al juego de 15 en fichas :D')
 pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nOPCIÓN: ')
 while pantallaDeInicio != '3':
     if pantallaDeInicio == '1':
+        eleccionesUsuario = []
+        eleccionesPC = []
+        pc1 = 0
+        pc2 = 0
+        pc3 = 0
+        f1 = 0
+        f2 = 0
+        f3 = 0
+        fichasCompu = ''
+        fichasJugador = ''
         iniciar = input('¿Quién desea iniciar?\n1.Usuario\n2.Computadora\nSu elección: ')
         if iniciar == '1':
             iniciaUsuario()
             ganar()
+            pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nOPCIÓN: ')
         elif iniciar == '2':
             iniciaPC()
             ganar()
+            pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nOPCIÓN: ')
     elif pantallaDeInicio == '2': 
         print("\nEl juego es simple, primero seleccionas 3 fichas, para ganar, esas fichas \nsumadas deben dar 15. Jugaras contra el computador. \nEl primero que consiga llegar a 15 gana.")
         pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nOPCIÓN: ')
