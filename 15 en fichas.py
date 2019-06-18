@@ -104,6 +104,7 @@ def cambioFicha(): #Pide la ficha a cambiar y la cambia por otra
     fichaCambia = int(input('\n¿Cuál ficha desea cambiar?\nFicha #: '))
     eleccionesUsuario[fichaCambia - 1] = int(input('Nueva posición de ficha: '))
 
+
 def cambiandoFichas(): #Va pidiendo cambio de ficha hasta que alguien gane
     while ganar:
         cambioFicha()
@@ -142,6 +143,7 @@ while pantallaDeInicio != '3':
         iniciar = input('¿Quién desea iniciar?\n1.Usuario\n2.Computadora\nSu elección: ')
         if iniciar == '1':
             iniciaUsuario()
+            cambioFichaPC(pc1,pc2)
             ganar()
             pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nOPCIÓN: ')
         elif iniciar == '2':
@@ -153,4 +155,3 @@ while pantallaDeInicio != '3':
         pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nOPCIÓN: ')
 print('Muchas gracias, vuelva pronto')
 
-    
