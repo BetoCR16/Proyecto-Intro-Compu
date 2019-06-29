@@ -50,7 +50,7 @@ def cinta():
     print(cinta)
 
 
-# ------------------------------Revisi�n de elecciones-------------------------------
+# ------------------------------Revisión de elecciones-------------------------------
 def revisarEleccion():  # Evita que el usuario ponga otra cosa que no sea un n�mero del 1 al 9 y evita que se repitan fichas
     eleccion = input('\nSeleccione una ficha: ')
     while len(eleccion) != 1 or eleccion not in '123456789' or eleccion in str(eleccionesUsuario) or eleccion in str(eleccionesPC) or eleccion == '':
@@ -220,7 +220,6 @@ def cambiandoFichas(turno):  # Va pidiendo cambio de ficha hasta que alguien gan
             gana = ganar(eleccionesPC, eleccionesUsuario)
     return gana
 
-
 # ----------------------------Definir gane--------------------------------------------
 def sumaPC(eleccionesPC):  # Realiza la suma de las fichas de la compu
     sumaPC = 0
@@ -266,7 +265,7 @@ def volverAJugar():
 
 # ----------------------------------- Programa Principal -----------------------------
 print('Bienvenido al juego de 15 en fichas :D', "\nElije una opción")
-pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: \n')
+pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigite el número de la opción deseada: ')
 while pantallaDeInicio != '3':
     if pantallaDeInicio == '1':
         jugar = True
@@ -281,7 +280,7 @@ while pantallaDeInicio != '3':
             f2 = 0
             f3 = 0
             turno = 0
-            iniciar = input('\n¿Quién desea iniciar?\n1.Usuario\n2.Computadora\nSu elección: ')
+            iniciar = input('\n¿Quién desea que inicie?\n1.Usuario\n2.Computadora\nSu elección: ')
             if iniciar == '1':
                 tablero()
                 turno = iniciaUsuario(turno)
@@ -300,10 +299,9 @@ while pantallaDeInicio != '3':
     elif pantallaDeInicio == '2':
         print(comoJugar.__doc__)
         print('_'*50)
-    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: \n')
+    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: ')
     if pantallaDeInicio == '' or pantallaDeInicio not in '123':
         print("OPCIÓN NO VÁLIDA")
         print('_'*50)
-        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: \n')
-    if pantallaDeInicio == '3':
-        print("\nGracias por usar este programa.\n¡Que tenga un lindo día!\nVuelva pronto :D\n\nCreadores: Roberto Méndez & Daniel Calero")
+        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: ')
+print("\nGracias por usar este programa.\n¡Que tenga un lindo día!\nVuelva pronto :D\n\nCreadores: Roberto Méndez & Daniel Calero")
