@@ -141,14 +141,43 @@ def cambioFichaUsuario():  # Pide la ficha a cambiar y la cambia por otra
         print (eleccionesUsuario)
     eleccionesUsuario[int(fichaCambia) - 1] = fichaNueva
 
+def busquedaDeFichaConveniente():
+    cambiarFicha = 0
+    suma1 = eleccionesPC[0]+eleccionesPC[1]
+    suma2 = eleccionesPC[0]+eleccionesPC[2]
+    suma3 = eleccionesPC[1]+eleccionesPC[2]
+    if (15 - suma1) not in eleccionesPC and (15 - suma1) not in eleccionesUsuario and (15 - suma1) > 0:
+        cambiarFicha = 2
+    elif (15 - suma2) not in eleccionesPC and (15 - suma2) not in eleccionesUsuario and (15 - suma2) > 0:
+        cambiarFicha = 1
+    elif (15 - suma3) not in eleccionesPC or (15 - suma3) not in eleccionesUsuario and (15 - suma3) > 0:
+        cambiarFicha = 0
+    else:
+        if suma1 > suma2 and suma1 < 15:
+            if suma1 > suma3:
+                cambiarFicha = 2
+            elif suma3 < 15:
+                cambiarFicha = 0
+            else: 
+                cambiarFicha = random.randint(0,2)
+        elif suma2 > suma3 and suma2 < 15:
+            cambiarFicha = 1
+        elif suma3 < 15:
+            cambiarFicha = 0
+        else: 
+            cambiarFicha = random.randint(0,2)
+    return cambiarFicha
+
 def cambioFichaPC(eleccionesPC):
-    fichaCambia = random.randint(0, 2)
+    fichaCambia = busquedaDeFichaConveniente()
     fichaVieja = eleccionesPC[fichaCambia]
     eleccionesPC[fichaCambia] = 0
-    eleccionesPC[fichaCambia] = 15 - sumaPC(eleccionesPC)
-    fichaNueva = eleccionesPC[fichaCambia]
+    fichaNueva = 15 - sumaPC(eleccionesPC)
+    print(eleccionesUsuario)
+    print("*************************",fichaNueva)
     while fichaNueva in eleccionesUsuario or fichaNueva in eleccionesPC or fichaNueva not in opciones or fichaNueva == fichaVieja:
         fichaNueva = revisarEleccionPC()
+        print("/////////////////////",fichaNueva)
     eleccionesPC[fichaCambia] = fichaNueva
     tablero()
     return fichaCambia
