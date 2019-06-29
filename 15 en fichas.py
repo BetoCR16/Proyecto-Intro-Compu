@@ -1,4 +1,23 @@
 import random
+def comoJugar():
+    """ 
+    El juego es simple, primero seleccionas 3 fichas. Para ganar, 
+    esas fichas sumadas deben dar 15. Jugarás contra el computador.
+    El primero que consiga llegar a 15 con 3 fichas gana.
+
+    Aparecera una fila de números con espacios en blanco debajo, 
+    estas serán las fichas a elegir. Cuando selecciones una ficha 
+    aparecera debajo de ella una 'U', marcando que la seleccionaste
+    Así como también aparecerá una 'C' indicando la seleccionada por 
+    el computador. 
+
+    Si ninguno gana tras elegir 3 fichas, podrán cambiar 
+    una ficha por turno hasta que alguno gane, para cambiar 
+    la ficha escribe el número de ficha a cambiar y luego
+    selecciona una nueva.
+
+    ¡A divertirnos!
+    """
 
 
 # ------------------------------ Tablero --------------------------------------------
@@ -8,8 +27,9 @@ def tablero():
 
 
 def cinta():
-    numeros = ['| 1  |', '| 2  |', '| 3  |', '| 4  |', '| 5  |', '| 6  |', '| 7  |', '| 8  |', '| 9  |']
-    cinta = ['| __ |', '| __ |', '| __ |', '| __ |', '| __ |', '| __ |', '| __ |', '| __ |', '| __ |']
+    numeros = ['|  1  |', '|  2  |', '|  3  |', '|  4  |', '|  5  |', '|  6  |', '|  7  |', '|  8  |', '|  9  |']
+    espacio = ['|     |', '|     |', '|     |', '|     |', '|     |', '|     |', '|     |', '|     |', '|     |']
+    cinta = ['|  _  |', '|  _  |', '|  _  |', '|  _  |', '|  _  |', '|  _  |', '|  _  |', '|  _  |', '|  _  |']
     n = 0
     n2 = 0
 
@@ -17,25 +37,25 @@ def cinta():
         if i in opciones:
             indice = opciones.index(i)
             n += 1
-            cinta[indice] = '| U' + str(n) + ' |'
+            cinta[indice] = '|  U' + '  |'
 
     for i in eleccionesPC:  # Pone una C en los lugares de las fichas de la compu
         if i in opciones:
             indice = opciones.index(i)
             n2 += 1
-            cinta[indice] = '| C' + str(n2) + ' |'
+            cinta[indice] = '|  C'+ '  |'
 
     print(numeros)
+    print(espacio)
     print(cinta)
 
 
 # ------------------------------Revisi�n de elecciones-------------------------------
 def revisarEleccion():  # Evita que el usuario ponga otra cosa que no sea un n�mero del 1 al 9 y evita que se repitan fichas
-    eleccion = int(input('\nSeleccione una ficha: '))
-    while len(str(eleccion)) != 1 or str(
-            eleccion) not in '123456789' or eleccion in eleccionesUsuario or eleccion in eleccionesPC:
-        eleccion = int(input('Ficha no válida. Seleccione otra ficha: '))
-    return eleccion
+    eleccion = input('\nSeleccione una ficha: ')
+    while len(eleccion) != 1 or eleccion not in '123456789' or eleccion in str(eleccionesUsuario) or eleccion in str(eleccionesPC) or eleccion == '':
+        eleccion = input('Ficha no válida. Seleccione otra ficha: ')
+    return int(eleccion)
 
 
 def revisarEleccionPC():  # Evita que la compu repita una ficha que ya haya usado o que el usuario haya usado
@@ -127,19 +147,18 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
 
     return turno
 
-
 # -----------------------------Cambio de fichas---------------------------------------
 def cambioFichaUsuario():  # Pide la ficha a cambiar y la cambia por otra
-    fichaCambia = input('\n¿Cuál ficha desea cambiar?\nFicha (1,2 o 3): ')
-    while fichaCambia not in '123' or fichaCambia == '':
-        fichaCambia = input('\nNúmero de ficha no es válido\n¿Cuál ficha desea cambiar?\nFicha (1,2 o 3): ')
-    fichaVieja = eleccionesUsuario[int(fichaCambia) - 1]
+    numFicha = input('\n¿Cuál posición de ficha desea cambiar?\nFicha en la posición: ')
+    while numFicha not in str(eleccionesUsuario) or numFicha == '':
+        numFicha = input('\nNúmero de ficha no es válido\n¿Cuál posición de ficha desea cambiar?\nFicha en la posición: ')
+    fichaCambia = eleccionesUsuario.index(int(numFicha))
+    fichaVieja = eleccionesUsuario[fichaCambia]
     fichaNueva = int(input('Nueva posición de ficha: '))
     while fichaNueva in eleccionesPC or fichaNueva in eleccionesUsuario\
     or fichaNueva == fichaVieja:
-        fichaNueva = int(input('\nFicha inválida\nDigite otra posición de ficha: ' ))
-        print (eleccionesUsuario)
-    eleccionesUsuario[int(fichaCambia) - 1] = fichaNueva
+        fichaNueva = int(input('\nPosición de ficha inválida.\nDigite otra posición de ficha: ' ))
+    eleccionesUsuario[fichaCambia] = fichaNueva
 
 def busquedaDeFichaConveniente():
     cambiarFicha = 0
@@ -173,23 +192,20 @@ def cambioFichaPC(eleccionesPC):
     fichaVieja = eleccionesPC[fichaCambia]
     eleccionesPC[fichaCambia] = 0
     fichaNueva = 15 - sumaPC(eleccionesPC)
-    print(eleccionesUsuario)
-    print("*************************",fichaNueva)
     while fichaNueva in eleccionesUsuario or fichaNueva in eleccionesPC or fichaNueva not in opciones or fichaNueva == fichaVieja:
         fichaNueva = revisarEleccionPC()
-        print("/////////////////////",fichaNueva)
     eleccionesPC[fichaCambia] = fichaNueva
     tablero()
-    return fichaCambia
+    return fichaVieja,fichaNueva
 
 def cambiandoFichas(turno):  # Va pidiendo cambio de ficha hasta que alguien gane
     gana = False
     while not gana:
         if turno % 2 == 0:
-            fichaCambia = cambioFichaPC(eleccionesPC)
+            fichaVieja,fichaNueva = cambioFichaPC(eleccionesPC)
             turno += 1
             tablero()
-            print('Computadora cambió de posición la ficha: ' + str(fichaCambia+1))
+            print('\nComputadora cambió una ficha de la posición '+str(fichaVieja)+' hacia la posición '+str(fichaNueva)+'.')
             gana = ganar(eleccionesPC, eleccionesUsuario)
         else:
             cambioFichaUsuario()
@@ -221,7 +237,7 @@ def ganar(eleccionesPC, eleccionesUsuario):  # Define si alguien gana o no
         print('\nEmpate')
         return True
     elif sumaCompu == 15:
-        print('\nGana compu')
+        print('\nGana computadora\n')
         return True
     elif sumaUsuario == 15:
         print('\nGana usuario')
@@ -232,19 +248,19 @@ def ganar(eleccionesPC, eleccionesUsuario):  # Define si alguien gana o no
 
 # --------------------------------Volver a jugar--------------------------------------
 def volverAJugar():
-    volverAlJuego = int(input("¿Desea volver al juego? (1 = Sí / 2 = No) : "))
-    if volverAlJuego not in range(1, 3):
-        volverAlJuego = int(input("\nSeleccione un opcion valida\n¿Desea volver al juego? (1 = Sí / 2 = No) : "))
-    if volverAlJuego == 1:
+    volverAlJuego = input("¿Desea volver al juego? (1 = Sí / 2 = No) : ")
+    while volverAlJuego not in '12' or volverAlJuego == '': 
+        volverAlJuego = int(input("\nSeleccione una opción válida\n¿Desea volver a jugar? (1 = Sí / 2 = No) : "))
+    if volverAlJuego == '1':
         jugar = True
-    elif volverAlJuego == 2:
+    elif volverAlJuego == '2':
         jugar = False
     return jugar
 
 
 # ----------------------------------- Programa Principal -----------------------------
-print('Bienvenido al juego de 15 en fichas :D', "\nElije una opcion")
-pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nDigita el numero de la opcion deseada: \n')
+print('Bienvenido al juego de 15 en fichas :D', "\nElije una opción")
+pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: \n')
 while pantallaDeInicio != '3':
     if pantallaDeInicio == '1':
         jugar = True
@@ -263,12 +279,10 @@ while pantallaDeInicio != '3':
             if iniciar == '1':
                 tablero()
                 turno = iniciaUsuario(turno)
-                print(turno)
                 gana = ganar(eleccionesPC, eleccionesUsuario)
             elif iniciar == '2':
                 tablero()
                 turno = iniciaPC(turno)
-                print(turno)
                 gana = ganar(eleccionesPC, eleccionesUsuario)
             if gana == True:
                 jugar = volverAJugar()
@@ -278,14 +292,12 @@ while pantallaDeInicio != '3':
             if jugar == False:
                 pantallaDeInicio = '3'
     elif pantallaDeInicio == '2':
-        print(
-            "\nEl juego es simple, primero seleccionas 3 fichas. Para ganar, esas fichas \nsumadas deben dar 15. Jugaras contra el computador. \nEl primero que consiga llegar a 15 con 3 fichas gana.")
-        print("Aparecera una fila de numeros con espacios en blanco debajo, esto seran las fichas a elegir.\nCuando selecciones una ficha aparecera debajo de ella una 'U' marcando que la seleccionaste")
-        print("Asi como tambien aparecera una 'C' indicando la seleccionada por el computador")
-        print("Si ninguno gana tras elegir 3 fichas, podran cambiar una ficha por turno hasta que alguno gane,\n para cambiar la ficha escribe el numero de ficha a cambiar y luego selecciona una nueva\n¡A divertirnos!")
-        pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nDigita el numero de la opcion deseada: \n')
-    if pantallaDeInicio == '':
-        print("Escribe una opcion")
-        pantallaDeInicio = input('\n1. JUGAR\n2. COMO JUGAR\n3. SALIR\n\nDigita el numero de la opcion deseada: \n')
+        print(comoJugar.__doc__)
+        print('_'*50)
+    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: \n')
+    if pantallaDeInicio == '' or pantallaDeInicio not in '123':
+        print("OPCIÓN NO VÁLIDA")
+        print('_'*50)
+        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: \n')
     if pantallaDeInicio == '3':
-        print("\nGracias por jugar\nVuelve pronto\n\nCreadores: Roberto Méndez & Daniel Calero")
+        print("\nGracias por usar este programa.\n¡Que tenga un lindo día!\nVuelva pronto :D\n\nCreadores: Roberto Méndez & Daniel Calero")
