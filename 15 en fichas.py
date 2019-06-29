@@ -77,6 +77,7 @@ def iniciaUsuario(turno):  # Primer turno si va a iniciar primero el usuario
     eleccionesPC.append(pc1)
     turno += 1
     tablero()
+    print('\nLa computadora eligió la ficha: ',pc1)
 
     f2 = revisarEleccion()
     eleccionesUsuario.append(f2)
@@ -89,6 +90,7 @@ def iniciaUsuario(turno):  # Primer turno si va a iniciar primero el usuario
     eleccionesPC.append(pc2)
     turno += 1
     tablero()
+    print('\nLa computadora eligió la ficha: ',pc2)
 
     f3 = revisarEleccion()
     eleccionesUsuario.append(f3)
@@ -101,6 +103,7 @@ def iniciaUsuario(turno):  # Primer turno si va a iniciar primero el usuario
     eleccionesPC.append(pc3)
     turno += 1
     tablero()
+    print('\nLa computadora eligió la ficha: ',pc3)
 
     return turno
 
@@ -109,6 +112,7 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
     eleccionesPC.append(pc1)
     turno += 1
     tablero()
+    print('\nLa computadora eligió la ficha: ',pc1)
 
     f1 = revisarEleccion()
     eleccionesUsuario.append(f1)
@@ -125,6 +129,7 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
         eleccionesPC[1] = pc2
     turno += 1
     tablero()
+    print('\nLa computadora eligió la ficha: ',pc2)
 
     f2 = revisarEleccion()
     eleccionesUsuario.append(f2)
@@ -139,6 +144,7 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
     eleccionesPC.append(pc3)
     turno += 1
     tablero()
+    print('\nLa computadora eligió la ficha: ',pc3)
 
     f3 = revisarEleccion()
     eleccionesUsuario.append(f3)
