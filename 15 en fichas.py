@@ -41,7 +41,7 @@ def revisarEleccion():  # Evita que el usuario ponga otra cosa que no sea un n�
 def revisarEleccionPC():  # Evita que la compu repita una ficha que ya haya usado o que el usuario haya usado
     pc = random.choice(opciones)
     while pc in eleccionesUsuario or pc in eleccionesPC:
-        pc = pc - 1
+        pc = random.choice(opciones)
     return pc
 
 
@@ -112,9 +112,9 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
     tablero()
 
     pc3 = 15 - sumaPC(eleccionesPC)
-    while pc3 in eleccionesUsuario or pc3 in eleccionesPC or str(pc3) not in '123456789':
+    if 14 >= sumaU(eleccionesUsuario) >= 6 :
         pc3 = 15 - sumaU(eleccionesUsuario)
-        if pc3 not in opciones or pc3 in eleccionesUsuario or pc3 in eleccionesPC:
+        while pc3 in eleccionesUsuario or pc3 in eleccionesPC or pc3 not in opciones:
             pc3 = revisarEleccionPC()
     eleccionesPC.append(pc3)
     turno += 1
@@ -130,24 +130,26 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
 
 # -----------------------------Cambio de fichas---------------------------------------
 def cambioFichaUsuario():  # Pide la ficha a cambiar y la cambia por otra
-    fichaCambia = int(input('\n¿Cuál ficha desea cambiar?\nFicha #: '))
-    while fichaCambia in eleccionesPC or fichaCambia not in eleccionesUsuario:
-        fichaCambia = int(input('\nFicha inválida\n¿Cuál ficha desea cambiar?\nFicha #: '))
-    eleccionesUsuario.remove(fichaCambia)
+    fichaCambia = input('\n¿Cuál ficha desea cambiar?\nFicha (1,2 o 3): ')
+    while fichaCambia not in '123' or fichaCambia == '':
+        fichaCambia = input('\nNúmero de ficha no es válido\n¿Cuál ficha desea cambiar?\nFicha (1,2 o 3): ')
+    fichaVieja = eleccionesUsuario[int(fichaCambia) - 1]
     fichaNueva = int(input('Nueva posición de ficha: '))
-    while fichaNueva in eleccionesPC or fichaNueva in eleccionesUsuario:
-        fichaNueva = int(input('\nFicha inválida\n¿Cuál ficha desea cambiar?\nFicha #: '))
-    eleccionesUsuario.append(fichaNueva)
-
+    while fichaNueva in eleccionesPC or fichaNueva in eleccionesUsuario\
+    or fichaNueva == fichaVieja:
+        fichaNueva = int(input('\nFicha inválida\nDigite otra posición de ficha: ' ))
+        print (eleccionesUsuario)
+    eleccionesUsuario[int(fichaCambia) - 1] = fichaNueva
 
 def cambioFichaPC(eleccionesPC):
     fichaCambia = random.randint(0, 2)
+    fichaVieja = eleccionesPC[fichaCambia]
     eleccionesPC[fichaCambia] = 0
     eleccionesPC[fichaCambia] = 15 - sumaPC(eleccionesPC)
-    while eleccionesPC[fichaCambia] in eleccionesUsuario or eleccionesPC[fichaCambia] not in opciones:
-        eleccionesPC[fichaCambia] = revisarEleccionPC()
-        if eleccionesPC[fichaCambia] in eleccionesPC or eleccionesPC[fichaCambia] not in opciones:
-           eleccionesPC[fichaCambia] = revisarEleccionPC() 
+    fichaNueva = eleccionesPC[fichaCambia]
+    while fichaNueva in eleccionesUsuario or fichaNueva in eleccionesPC or fichaNueva not in opciones or fichaNueva == fichaVieja:
+        fichaNueva = revisarEleccionPC()
+    eleccionesPC[fichaCambia] = fichaNueva
     tablero()
     return fichaCambia
 
@@ -158,7 +160,7 @@ def cambiandoFichas(turno):  # Va pidiendo cambio de ficha hasta que alguien gan
             fichaCambia = cambioFichaPC(eleccionesPC)
             turno += 1
             tablero()
-            print('Computadora cambió la ficha: ' + str(fichaCambia+1))
+            print('Computadora cambió de posición la ficha: ' + str(fichaCambia+1))
             gana = ganar(eleccionesPC, eleccionesUsuario)
         else:
             cambioFichaUsuario()
