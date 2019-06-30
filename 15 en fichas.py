@@ -18,8 +18,21 @@ def comoJugar():
 
     ¡A divertirnos!
     """
+    pass
 
+def acercaDe():
+    """
+    -----------------| Juego 15 en fichas |-------------------
+    
+    Universidad de Costa Rica
+    Proyecto del Curso de Introducción a la Computación 
+    Creadores: Roberto Méndez López y Daniel Calero Fuentes
+    Profesora: Maureen Murillo
+    Junio 2019
 
+    ----------------------------------------------------------
+    """
+    pass
 # ------------------------------ Tablero --------------------------------------------
 def tablero():
     print("\n" * 50)
@@ -265,8 +278,8 @@ def volverAJugar():
 
 # ----------------------------------- Programa Principal -----------------------------
 print('Bienvenido al juego de 15 en fichas :D', "\nElije una opción")
-pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigite el número de la opción deseada: ')
-while pantallaDeInicio != '3':
+pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3.ACERCA DE\n4. SALIR\n\nDigite el número de la opción deseada: ')
+while pantallaDeInicio != '4':
     if pantallaDeInicio == '1':
         jugar = True
         while jugar == True:
@@ -299,9 +312,12 @@ while pantallaDeInicio != '3':
     elif pantallaDeInicio == '2':
         print(comoJugar.__doc__)
         print('_'*50)
-    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: ')
-    if pantallaDeInicio == '' or pantallaDeInicio not in '123':
+    elif pantallaDeInicio == '3':
+        print(acercaDe.__doc__)
+        print('_'*50)
+    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3.ACERCA DE\n4. SALIR\n\nDigita el número de la opción deseada: ')
+    if pantallaDeInicio == '' or pantallaDeInicio not in '1234':
         print("OPCIÓN NO VÁLIDA")
         print('_'*50)
-        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. SALIR\n\nDigita el número de la opción deseada: ')
+        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3.ACERCA DE\n4. SALIR\n\nDigita el número de la opción deseada: ')
 print("\nGracias por usar este programa.\n¡Que tenga un lindo día!\nVuelva pronto :D\n\nCreadores: Roberto Méndez & Daniel Calero")
