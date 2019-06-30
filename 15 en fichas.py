@@ -67,7 +67,9 @@ def cinta():
 def revisarEleccion():  # Evita que el usuario ponga otra cosa que no sea un n�mero del 1 al 9 y evita que se repitan fichas
     eleccion = input('\nSeleccione una ficha: ')
     while len(eleccion) != 1 or eleccion not in '123456789' or eleccion in str(eleccionesUsuario) or eleccion in str(eleccionesPC) or eleccion == '':
-        eleccion = input('Ficha no válida. Seleccione otra ficha: ')
+        print('\nElecciones Computadora:', eleccionesPC)
+        print('Elecciones Usuario:', eleccionesUsuario)
+        eleccion = input('\nFicha no válida. Seleccione otra ficha: ')
     return int(eleccion)
 
 
@@ -168,15 +170,19 @@ def iniciaPC(turno):  # Primer turno si va a iniciar primero la computadora
 
 # -----------------------------Cambio de fichas---------------------------------------
 def cambioFichaUsuario():  # Pide la ficha a cambiar y la cambia por otra
-    numFicha = input('\n¿Cuál posición de ficha desea cambiar?\nFicha en la posición: ')
+    numFicha = input('\n¿Cuál ficha desea cambiar de posición?\nFicha en la posición: ')
     while numFicha not in str(eleccionesUsuario) or numFicha == '':
-        numFicha = input('\nNúmero de ficha no es válido\n¿Cuál posición de ficha desea cambiar?\nFicha en la posición: ')
+        print('\nFicha no es válida')
+        print('\nFichas que puede cambiar: ', eleccionesUsuario)
+        numFicha = input('\n¿Cuál ficha desea cambiar de posición?\nFicha en la posición: ')
     fichaCambia = eleccionesUsuario.index(int(numFicha))
     fichaVieja = eleccionesUsuario[fichaCambia]
     fichaNueva = int(input('Nueva posición de ficha: '))
     while fichaNueva in eleccionesPC or fichaNueva in eleccionesUsuario\
     or fichaNueva == fichaVieja:
-        fichaNueva = int(input('\nPosición de ficha inválida.\nDigite otra posición de ficha: ' ))
+        print('\nNueva posición de ficha INVÁLIDA O REPETIDA.\n')
+        cinta()
+        fichaNueva = int(input('\nDigite otra nueva posición de ficha: ' ))
     eleccionesUsuario[fichaCambia] = fichaNueva
 
 def busquedaDeFichaConveniente():
@@ -278,7 +284,7 @@ def volverAJugar():
 
 # ----------------------------------- Programa Principal -----------------------------
 print('Bienvenido al juego de 15 en fichas :D', "\nElije una opción")
-pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3.ACERCA DE\n4. SALIR\n\nDigite el número de la opción deseada: ')
+pantallaDeInicio = input('\n1. JUGAR\n2. CÓMO JUGAR\n3. ACERCA DE\n4. SALIR\n\nDigite el número de la opción deseada: ')
 while pantallaDeInicio != '4':
     if pantallaDeInicio == '1':
         jugar = True
@@ -315,9 +321,9 @@ while pantallaDeInicio != '4':
     elif pantallaDeInicio == '3':
         print(acercaDe.__doc__)
         print('_'*50)
-    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3.ACERCA DE\n4. SALIR\n\nDigita el número de la opción deseada: ')
+    pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. ACERCA DE\n4. SALIR\n\nDigita el número de la opción deseada: ')
     if pantallaDeInicio == '' or pantallaDeInicio not in '1234':
         print("OPCIÓN NO VÁLIDA")
         print('_'*50)
-        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3.ACERCA DE\n4. SALIR\n\nDigita el número de la opción deseada: ')
+        pantallaDeInicio = input('\nMENÚ PRINCIPAL\n\n1. JUGAR\n2. CÓMO JUGAR\n3. ACERCA DE\n4. SALIR\n\nDigita el número de la opción deseada: ')
 print("\nGracias por usar este programa.\n¡Que tenga un lindo día!\nVuelva pronto :D\n\nCreadores: Roberto Méndez & Daniel Calero")
